@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>jflex-cup-grammar</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.vbmacher</groupId>
+            <artifactId>java-cup-runtime</artifactId>
+            <version>11b-20160615-2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- JFlex Maven Plugin -->
+            <plugin>
+                <groupId>de.jflex</groupId>
+                <artifactId>jflex-maven-plugin</artifactId>
+                <version>1.8.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- CUP Maven Plugin -->
+            <plugin>
+                <groupId>com.github.vbmacher</groupId>
+                <artifactId>cup-maven-plugin</artifactId>
+                <version>11b-20160615</version>
+                <executions>
+                    <execution>
+                        <id>cup</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <className>ParserInternal</className>
+                            <symbolsName>Symbols</symbolsName>
+                            <cupDefinition>src/main/cup/parser.cup</cupDefinition>
+                            <packageName>org.example</packageName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.moditect</groupId>
+                <artifactId>moditect-maven-plugin</artifactId>
+                <version>1.0.0.Final</version>
+                <executions>
+                    <execution>
+                        <id>add-module-info</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+<!--                            <goal>add-module-info</goal>-->
+                        </goals>
+                        <configuration>
+                            <failOnWarning>false</failOnWarning>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <overwriteExistingFiles>true</overwriteExistingFiles>
+                            <modules>
+                                <module>
+                                    <artifact>
+                                        <groupId>com.github.vbmacher</groupId>
+                                        <artifactId>java-cup-runtime</artifactId>
+                                        <version>11b-20160615-2</version>
+                                    </artifact>
+<!--                                    <moduleInfoSource>-->
+<!--                                        module org.example.java_cup.runtime {-->
+<!--                                        requires java.xml;-->
+<!--                                        exports java_cup.runtime;-->
+<!--                                        }-->
+<!--                                    </moduleInfoSource>-->
+                                </module>
+                            </modules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                    <executions>
+                        <execution>
+                            <id>add-source</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>add-source</goal>
+                            </goals>
+                            <configuration>
+                                <sources>
+                                    <source>${project.build.directory}/generated-sources/jflex</source>
+                                    <source>${project.build.directory}/generated-sources/cup</source>
+                                </sources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
