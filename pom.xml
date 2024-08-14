@@ -59,67 +59,7 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.moditect</groupId>
-                <artifactId>moditect-maven-plugin</artifactId>
-                <version>1.0.0.Final</version>
-                <executions>
-                    <execution>
-                        <id>add-module-info</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-<!--                            <goal>add-module-info</goal>-->
-                        </goals>
-                        <configuration>
-                            <failOnWarning>false</failOnWarning>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <overwriteExistingFiles>true</overwriteExistingFiles>
-                            <modules>
-                                <module>
-                                    <artifact>
-                                        <groupId>com.github.vbmacher</groupId>
-                                        <artifactId>java-cup-runtime</artifactId>
-                                        <version>11b-20160615-2</version>
-                                    </artifact>
-<!--                                    <moduleInfoSource>-->
-<!--                                        module org.example.java_cup.runtime {-->
-<!--                                        requires java.xml;-->
-<!--                                        exports java_cup.runtime;-->
-<!--                                        }-->
-<!--                                    </moduleInfoSource>-->
-                                </module>
-                            </modules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <executions>
-                        <execution>
-                            <id>add-source</id>
-                            <phase>generate-sources</phase>
-                            <goals>
-                                <goal>add-source</goal>
-                            </goals>
-                            <configuration>
-                                <sources>
-                                    <source>${project.build.directory}/generated-sources/jflex</source>
-                                    <source>${project.build.directory}/generated-sources/cup</source>
-                                </sources>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
 </project>
