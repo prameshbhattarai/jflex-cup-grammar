@@ -40,7 +40,5 @@ STRING = \"([^\\\"]|\\.)*\"
 {NUMBER}    { return sf.newSymbol("NUMBER", ParserSym.NUMBER, Integer.valueOf(yytext())); }
 {STRING}    { return sf.newSymbol("STRING", ParserSym.NUMBER, new String(yytext())); }
 
-.           { /* ignore */ }
-
 /* error fallback */
 [^]         { throw new Error("Illegal character <" + yytext() + ">");  }

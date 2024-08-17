@@ -32,6 +32,7 @@ precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE;
 precedence left UMINUS;
 
+/* Start Program */
 start with program;
 
 /* Grammar */

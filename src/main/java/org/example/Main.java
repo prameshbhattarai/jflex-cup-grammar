@@ -1,7 +1,7 @@
 package org.example;
 import java_cup.runtime.ComplexSymbolFactory;
 
-class Main {
+public class Main {
     private static final String EXPRESSION = "print(1+2)";
 
     public static void main(String[] args) throws Exception {
