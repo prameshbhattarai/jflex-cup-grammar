@@ -1,5 +1,6 @@
 package org.example;
-import java_cup.runtime.SymbolFactory;
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import java.io.StringReader;
 
 %%
@@ -11,9 +12,9 @@ import java.io.StringReader;
 %cup
 
 %{
-    SymbolFactory sf;
+    ComplexSymbolFactory sf;
 
-    public Lexer(String line, SymbolFactory sf) {
+    public Lexer(String line, ComplexSymbolFactory sf) {
         this(new StringReader(line));
         this.sf = sf;
     }

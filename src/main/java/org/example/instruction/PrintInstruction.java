@@ -4,10 +4,10 @@ import org.example.expression.Expr;
 
 import java.util.HashMap;
 
-public class OutputInstruction implements Instruction{
+public class PrintInstruction implements Instruction{
     private final Expr expr;
 
-    public OutputInstruction(Expr expr) {
+    public PrintInstruction(Expr expr) {
         this.expr = expr;
     }
     @Override
