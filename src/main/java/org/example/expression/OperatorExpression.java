@@ -16,7 +16,17 @@ public class OperatorExpression implements Expr {
     }
 
     @Override
-    public Object run(HashMap<String, Object> hm) {
+    public Object get(HashMap<String, Object> hm) {
         return operator.count(e1, e2, hm);
+    }
+
+    @Override
+    public Object get(Object value) {
+        return operator.count(e1, e2, value);
+    }
+
+    @Override
+    public Object get() {
+        return operator.count(e1, e2);
     }
 }

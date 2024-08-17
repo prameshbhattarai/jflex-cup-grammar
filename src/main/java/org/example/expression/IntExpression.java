@@ -10,7 +10,17 @@ public class IntExpression implements Expr {
     }
 
     @Override
-    public Object run(HashMap<String, Object> hm) {
+    public Object get(HashMap<String, Object> hm) {
+        return value;
+    }
+
+    @Override
+    public Object get(Object value) {
+        return value;
+    }
+
+    @Override
+    public Object get() {
         return value;
     }
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class Program {
     private final HashMap<String, Object> hm = new HashMap<>();
+    private final Object obj = new Object();
     private final InstructionList instructionList;
 
     public Program(InstructionList instructionList) {
@@ -13,7 +14,7 @@ public class Program {
     }
 
     public void exec() {
-        instructionList.run(hm);
+        instructionList.run();
     }
 
 }

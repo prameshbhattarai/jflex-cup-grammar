@@ -13,6 +13,16 @@ public class PrintInstruction implements Instruction {
 
     @Override
     public void run(HashMap<String, Object> hm) {
-        System.out.println(expr.run(hm));
+        System.out.println(expr.get(hm));
+    }
+
+    @Override
+    public void run(Object instruction) {
+        System.out.println(expr.get(instruction));
+    }
+
+    @Override
+    public void run() {
+        System.out.println(expr.get());
     }
 }
