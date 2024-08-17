@@ -1,20 +1,86 @@
 package org.example;
+
+import org.example.expression.*;
+import org.example.operator.*;
+import org.example.instruction.*;
+
+
 class Parser;
 
-terminal PLUS, MINUS, TIMES, UMINUS, LPAREN, RPAREN;
+/* Terminals */
+terminal PLUS, MINUS, TIMES, DIVIDE, UMINUS, LPAREN, RPAREN;
 terminal Integer NUMBER;
+terminal String STRING;
 
-non terminal Integer expr;
+terminal PRINT; // instruction
 
+/* Non Terminals */
+non terminal Expr expr;
+non terminal Expr num_expr;
+non terminal Expr str_expr;
+
+non terminal Program program;
+
+non terminal Operator num_op;
+
+non terminal InstructionList inst_list;
+non terminal Instruction inst;
+non terminal PrintInstruction print_inst;
+
+/* Precedence */
 precedence left PLUS, MINUS;
-precedence left TIMES;
+precedence left TIMES, DIVIDE;
 precedence left UMINUS;
 
+start with program;
+
+/* Grammar */
 expr ::=
-    expr:e1 PLUS expr:e2    {: RESULT = e1 + e2; :} |
-    expr:e1 MINUS expr:e2   {: RESULT = e1 - e2; :} |
-    expr:e1 TIMES expr:e2   {: RESULT = e1 * e2; :} |
-    MINUS expr:e            {: RESULT = -e; :} %prec UMINUS |
-    LPAREN expr:e RPAREN    {: RESULT = e; :} |
-    NUMBER:n                {: RESULT = n; :}
+    num_expr:e
+        {: RESULT = e; :} |
+    str_expr:e
+        {: RESULT = e; :}
+;
+
+num_expr ::=
+    NUMBER:e
+        {: RESULT = new IntExpression(e.intValue()); :} |
+    expr:e1 num_op:o expr:e2
+        {: RESULT = new OperatorExpression(e1, o, e2); :}
+;
+
+str_expr ::=
+    STRING:s
+        {: RESULT = new StringExpression(s.substring(1, s.length()-1)); :}
+;
+
+num_op ::=
+    PLUS
+        {: RESULT = new PlusOperator(); :} |
+    MINUS
+        {: RESULT = new MinusOperator(); :} |
+    TIMES
+        {: RESULT = new TimesOperator(); :} |
+    DIVIDE
+        {: RESULT = new DivideOperator(); :}
+;
+
+inst_list ::=
+    inst:i
+        {: RESULT = new InstructionList(i); :}
+;
+
+inst ::=
+    print_inst:pi
+        {: RESULT = pi; :}
+;
+
+print_inst ::=
+    PRINT LPAREN expr:e RPAREN
+        {: RESULT = new PrintInstruction(e); :}
+;
+
+program ::=
+    inst_list:i
+        {: Program program = new Program(i); program.exec(); :}
 ;
