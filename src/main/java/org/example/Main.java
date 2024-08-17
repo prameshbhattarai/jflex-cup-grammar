@@ -1,4 +1,5 @@
 package org.example;
+
 import java_cup.runtime.ComplexSymbolFactory;
 
 public class Main {

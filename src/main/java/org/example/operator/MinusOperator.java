@@ -4,7 +4,7 @@ import org.example.expression.Expr;
 
 import java.util.HashMap;
 
-public class MinusOperator implements Operator{
+public class MinusOperator implements Operator {
     @Override
     public int count(Expr e1, Expr e2, HashMap<String, Object> hm) {
         var v1 = e1.run(hm);
