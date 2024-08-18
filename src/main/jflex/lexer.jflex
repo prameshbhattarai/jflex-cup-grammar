@@ -1,7 +1,8 @@
 package org.example;
+
 import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.ComplexSymbolFactory.Location;
-import java.io.StringReader;
+import java.io.Reader;
 
 %%
 
@@ -10,35 +11,44 @@ import java.io.StringReader;
 %unicode
 %cupsym ParserSym
 %cup
+%implements Symbols
 
 %{
     ComplexSymbolFactory sf;
 
-    public Lexer(String line, ComplexSymbolFactory sf) {
-        this(new StringReader(line));
+    public Lexer(Reader reader, ComplexSymbolFactory sf) {
+        this(reader);
         this.sf = sf;
     }
 %}
 
 %eofval{
-    return sf.newSymbol("EOF", ParserSym.EOF);
+    return sf.newSymbol(
+        "EOF",
+        EOF,
+        new Location(yyline+1, yycolumn+1, (int)yychar),
+        new Location(yyline+1, yycolumn+1, (int)yychar+1)
+    );
 %eofval}
 
 NUMBER = [0-9]+
 STRING = \"([^\\\"]|\\.)*\"
+WHITESPACE = \r|\n|\r\n\t\f
 
 %%
-"print"     { return sf.newSymbol("print", ParserSym.PRINT); }
+"print"         { return sf.newSymbol("print", PRINT); }
 
-"+"         { return sf.newSymbol("+", ParserSym.PLUS); }
-"-"         { return sf.newSymbol("-", ParserSym.MINUS); }
-"*"         { return sf.newSymbol("*", ParserSym.TIMES); }
-"/"         { return sf.newSymbol("/", ParserSym.DIVIDE); }
-"("         { return sf.newSymbol("(", ParserSym.LPAREN); }
-")"         { return sf.newSymbol(")", ParserSym.RPAREN); }
+"+"             { return sf.newSymbol("+", PLUS); }
+"-"             { return sf.newSymbol("-", MINUS); }
+"*"             { return sf.newSymbol("*", TIMES); }
+"/"             { return sf.newSymbol("/", DIVIDE); }
+"("             { return sf.newSymbol("(", LPAREN); }
+")"             { return sf.newSymbol(")", RPAREN); }
+";"             { return sf.newSymbol(";", SEMI); }
 
-{NUMBER}    { return sf.newSymbol("NUMBER", ParserSym.NUMBER, Integer.valueOf(yytext())); }
-{STRING}    { return sf.newSymbol("STRING", ParserSym.NUMBER, new String(yytext())); }
+{NUMBER}        { return sf.newSymbol("NUMBER", NUMBER, Integer.valueOf(yytext())); }
+{STRING}        { return sf.newSymbol("STRING", STRING, new String(yytext())); }
+{WHITESPACE}    { /* do nothing */ }
 
 /* error fallback */
 [^]         { throw new Error("Illegal character <" + yytext() + ">");  }

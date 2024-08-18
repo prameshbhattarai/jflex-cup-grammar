@@ -1,14 +1,43 @@
 package org.example;
 
+import java_cup.runtime.Symbol;
+import java_cup.runtime.ComplexSymbolFactory;
+
 import org.example.expression.*;
 import org.example.operator.*;
 import org.example.instruction.*;
 
+parser code {:
 
-class Parser;
+    public ParserInternal(Lexer lex, ComplexSymbolFactory sf) {
+        super(lex, sf);
+    }
+
+    public void report_error(String message, Object info) {
+        StringBuilder sb = new StringBuilder("Error");
+
+        if (info instanceof java_cup.runtime.Symbol symbol) {
+
+            if (symbol.left >= 0) {
+                sb.append(" in line ").append(symbol.left+1);
+            }
+
+            if (symbol.right >= 0) {
+               sb.append(", column ").append(symbol.right+1);
+            }
+        }
+        sb.append(" : ").append(message);
+        System.err.println(sb);
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+:};
 
 /* Terminals */
-terminal PLUS, MINUS, TIMES, DIVIDE, UMINUS, LPAREN, RPAREN;
+terminal PLUS, MINUS, TIMES, DIVIDE, UMINUS, LPAREN, RPAREN, SEMI;
 terminal Integer NUMBER;
 terminal String STRING;
 
@@ -67,6 +96,8 @@ num_op ::=
 ;
 
 inst_list ::=
+    inst_list:il SEMI inst:i
+        {: il.add(i); RESULT = il; :} |
     inst:i
         {: RESULT = new InstructionList(i); :}
 ;
