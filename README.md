@@ -6,8 +6,10 @@ A DSL is a specialized programming language tailored to a specific domain or pro
 
 ## Setup
 ```shell
-mvn clean install
+mvn clean package
 ```
 
 ### Run
-Run the Main class
+```shell
+java -jar ./target/grammar.jar ./code
+```
