@@ -98,6 +98,8 @@ num_op ::=
 inst_list ::=
     inst_list:il SEMI inst:i
         {: il.add(i); RESULT = il; :} |
+    inst_list:il SEMI
+        {: RESULT = il; :} |
     inst:i
         {: RESULT = new InstructionList(i); :}
 ;

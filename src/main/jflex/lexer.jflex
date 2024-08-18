@@ -33,7 +33,8 @@ import java.io.Reader;
 
 NUMBER = [0-9]+
 STRING = \"([^\\\"]|\\.)*\"
-WHITESPACE = \r|\n|\r\n\t\f
+NEWLINE =  \r|\n|\r\n
+WHITESPACE = {NEWLINE} | [\t\f]
 
 %%
 "print"         { return sf.newSymbol("print", PRINT); }
