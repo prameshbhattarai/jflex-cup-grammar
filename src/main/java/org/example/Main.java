@@ -17,7 +17,7 @@ public class Main {
         }
 
         String filePath = args[0];
-        try(var inputStream = new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8)) {
+        try (var inputStream = new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8)) {
             var factory = new ComplexSymbolFactory();
             var lexer = new Lexer(inputStream, factory);
             var parser = new ParserInternal(lexer, factory);

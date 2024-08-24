@@ -37,11 +37,13 @@ parser code {:
 :};
 
 /* Terminals */
-terminal PLUS, MINUS, TIMES, DIVIDE, UMINUS, LPAREN, RPAREN, SEMI, LBRACE, RBRACE;
+terminal PLUS, MINUS, TIMES, DIVIDE, MODULO, ASSIGN;
+terminal LPAREN, RPAREN, SEMI, LBRACE, RBRACE;
 terminal Integer NUMBER;
+terminal String IDENT;
 terminal String STRING;
 
-terminal PRINT, FUNCTION; // instruction
+terminal PRINT, MAIN_FUNCTION; // instruction
 
 /* Non Terminals */
 non terminal Expr expr;
@@ -54,18 +56,20 @@ non terminal Operator num_op;
 
 non terminal InstructionList inst_list;
 non terminal Instruction inst;
+non terminal AssignmentInstruction assign_inst;
 non terminal PrintInstruction print_inst;
 
 /* Precedence */
 precedence left PLUS, MINUS;
-precedence left TIMES, DIVIDE;
-precedence left UMINUS;
+precedence left TIMES, DIVIDE, MODULO;
 
 /* Start Program */
 start with program;
 
 /* Grammar */
 expr ::=
+    IDENT:i
+        {: RESULT = new IDExpression(i); :} |
     num_expr:e
         {: RESULT = e; :} |
     str_expr:e
@@ -92,12 +96,12 @@ num_op ::=
     TIMES
         {: RESULT = new TimesOperator(); :} |
     DIVIDE
-        {: RESULT = new DivideOperator(); :}
+        {: RESULT = new DivideOperator(); :} |
+    MODULO
+        {: RESULT = new ModuloOperator(); :}
 ;
 
 inst_list ::=
-    FUNCTION LPAREN RPAREN LBRACE inst_list:il RBRACE
-        {: RESULT = il; :} |
     inst_list:il inst:i
         {: il.add(i); RESULT = il; :} |
     inst:i
@@ -106,7 +110,9 @@ inst_list ::=
 
 inst ::=
     print_inst:pi SEMI
-        {: RESULT = pi; :}
+        {: RESULT = pi; :} |
+    assign_inst:ai SEMI
+        {: RESULT = ai; :}
 ;
 
 print_inst ::=
@@ -114,7 +120,13 @@ print_inst ::=
         {: RESULT = new PrintInstruction(e); :}
 ;
 
+assign_inst ::=
+    IDENT:i ASSIGN expr:e
+        {: RESULT = new AssignmentInstruction(i, e); :}
+;
+
 program ::=
-    inst_list:i
+    MAIN_FUNCTION LPAREN RPAREN LBRACE inst_list:i
         {: Program program = new Program(i); program.exec(); :}
+    RBRACE
 ;

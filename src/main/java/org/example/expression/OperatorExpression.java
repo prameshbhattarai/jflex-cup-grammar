@@ -15,6 +15,6 @@ public class OperatorExpression implements Expr {
 
     @Override
     public Object get() {
-        return operator.count(e1, e2);
+        return operator.exec(e1, e2);
     }
 }

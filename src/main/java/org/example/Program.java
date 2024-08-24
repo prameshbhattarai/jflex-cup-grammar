@@ -4,6 +4,7 @@ import org.example.instruction.InstructionList;
 
 public class Program {
     private final InstructionList instructionList;
+
     public Program() {
         this.instructionList = null;
     }

@@ -32,25 +32,29 @@ import java.io.Reader;
 %eofval}
 
 NUMBER = [0-9]+
+IDENT = [A-Za-z_][A-Za-z_0-9]*
 STRING = \"([^\\\"]|\\.)*\"
 NEWLINE =  \r|\n|\r\n
 WHITESPACE = {NEWLINE} | [ \f\t\v]
 
 %%
 "print"         { return sf.newSymbol("print", PRINT); }
-"function"      { return sf.newSymbol("function", FUNCTION); }
+"main"          { return sf.newSymbol("main", MAIN_FUNCTION); }
 
 "+"             { return sf.newSymbol("+", PLUS); }
 "-"             { return sf.newSymbol("-", MINUS); }
 "*"             { return sf.newSymbol("*", TIMES); }
 "/"             { return sf.newSymbol("/", DIVIDE); }
+"%"             { return sf.newSymbol("%", MODULO); }
 "("             { return sf.newSymbol("(", LPAREN); }
 ")"             { return sf.newSymbol(")", RPAREN); }
 "{"             { return sf.newSymbol("{", LBRACE); }
 "}"             { return sf.newSymbol("}", RBRACE); }
 ";"             { return sf.newSymbol(";", SEMI); }
+"="             { return sf.newSymbol("=", ASSIGN); }
 
 {NUMBER}        { return sf.newSymbol("NUMBER", NUMBER, Integer.valueOf(yytext())); }
+{IDENT}         { return sf.newSymbol("IDENT", IDENT, new String(yytext())); }
 {STRING}        { return sf.newSymbol("STRING", STRING, new String(yytext())); }
 {WHITESPACE}    { /* do nothing */ }
 

@@ -1,5 +1,7 @@
-function() {
-    print("abc");
-    print("1+2");
+main() {
+    a = 1;
+    b = 2;
+    print(c);
+    print("a");
     print(1+2);
 }
