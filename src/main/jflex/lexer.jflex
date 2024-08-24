@@ -34,10 +34,11 @@ import java.io.Reader;
 NUMBER = [0-9]+
 STRING = \"([^\\\"]|\\.)*\"
 NEWLINE =  \r|\n|\r\n
-WHITESPACE = {NEWLINE} | [\t\f]
+WHITESPACE = {NEWLINE} | [ \f\t\v]
 
 %%
 "print"         { return sf.newSymbol("print", PRINT); }
+"function"      { return sf.newSymbol("function", FUNCTION); }
 
 "+"             { return sf.newSymbol("+", PLUS); }
 "-"             { return sf.newSymbol("-", MINUS); }
@@ -45,6 +46,8 @@ WHITESPACE = {NEWLINE} | [\t\f]
 "/"             { return sf.newSymbol("/", DIVIDE); }
 "("             { return sf.newSymbol("(", LPAREN); }
 ")"             { return sf.newSymbol(")", RPAREN); }
+"{"             { return sf.newSymbol("{", LBRACE); }
+"}"             { return sf.newSymbol("}", RBRACE); }
 ";"             { return sf.newSymbol(";", SEMI); }
 
 {NUMBER}        { return sf.newSymbol("NUMBER", NUMBER, Integer.valueOf(yytext())); }

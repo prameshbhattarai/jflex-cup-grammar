@@ -37,11 +37,11 @@ parser code {:
 :};
 
 /* Terminals */
-terminal PLUS, MINUS, TIMES, DIVIDE, UMINUS, LPAREN, RPAREN, SEMI;
+terminal PLUS, MINUS, TIMES, DIVIDE, UMINUS, LPAREN, RPAREN, SEMI, LBRACE, RBRACE;
 terminal Integer NUMBER;
 terminal String STRING;
 
-terminal PRINT; // instruction
+terminal PRINT, FUNCTION; // instruction
 
 /* Non Terminals */
 non terminal Expr expr;
@@ -96,16 +96,16 @@ num_op ::=
 ;
 
 inst_list ::=
-    inst_list:il SEMI inst:i
-        {: il.add(i); RESULT = il; :} |
-    inst_list:il SEMI
+    FUNCTION LPAREN RPAREN LBRACE inst_list:il RBRACE
         {: RESULT = il; :} |
+    inst_list:il inst:i
+        {: il.add(i); RESULT = il; :} |
     inst:i
         {: RESULT = new InstructionList(i); :}
 ;
 
 inst ::=
-    print_inst:pi
+    print_inst:pi SEMI
         {: RESULT = pi; :}
 ;
 

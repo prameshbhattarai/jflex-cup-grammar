@@ -1,4 +1,5 @@
-print("abc");
-print(1+3);
-print(5*7);
-;;
+function() {
+    print("abc");
+    print("1+2");
+    print(1+2);
+}
