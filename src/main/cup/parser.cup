@@ -13,27 +13,27 @@ parser code {:
         super(lex, sf);
     }
 
-//    public void report_error(String message, Object info) {
-//        StringBuilder sb = new StringBuilder("Error");
-//
-//        if (info instanceof java_cup.runtime.Symbol symbol) {
-//
-//            if (symbol.left >= 0) {
-//                sb.append(" in line ").append(symbol.left+1);
-//            }
-//
-//            if (symbol.right >= 0) {
-//               sb.append(", column ").append(symbol.right+1);
-//            }
-//        }
-//        sb.append(" : ").append(message);
-//        System.err.println(sb);
-//    }
-//
-//    public void report_fatal_error(String message, Object info) {
-//        report_error(message, info);
-//        System.exit(1);
-//    }
+    public void report_error(String message, Object info) {
+        StringBuilder sb = new StringBuilder("Error");
+
+        if (info instanceof java_cup.runtime.Symbol symbol) {
+
+            if (symbol.left >= 0) {
+                sb.append(" in line ").append(symbol.left+1);
+            }
+
+            if (symbol.right >= 0) {
+               sb.append(", column ").append(symbol.right+1);
+            }
+        }
+        sb.append(" : ").append(message);
+        System.err.println(sb);
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
 :};
 
 /* Terminals */
