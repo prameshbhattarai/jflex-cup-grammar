@@ -14,10 +14,9 @@ public interface Operator {
         }
         if (e.get(assignmentLookup) instanceof Integer integer) {
             return integer;
-        } else {
-            System.out.println("Error: wrong objects type");
-            System.exit(1);
-            return 0;
         }
+        System.out.println("Error: wrong objects type");
+        System.exit(1);
+        return 0;
     }
 }
