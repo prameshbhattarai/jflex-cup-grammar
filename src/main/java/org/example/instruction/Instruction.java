@@ -1,5 +1,7 @@
 package org.example.instruction;
 
+import java.util.HashMap;
+
 public interface Instruction {
-    void run();
+    void run(HashMap<String, Object> assignmentLookup);
 }

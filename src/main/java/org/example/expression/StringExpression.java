@@ -1,5 +1,7 @@
 package org.example.expression;
 
+import java.util.HashMap;
+
 public class StringExpression implements Expr {
     private final String value;
 
@@ -8,7 +10,7 @@ public class StringExpression implements Expr {
     }
 
     @Override
-    public Object get() {
+    public Object get(HashMap<String, Object> assignmentLookup) {
         return value;
     }
 }

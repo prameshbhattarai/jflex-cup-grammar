@@ -2,6 +2,8 @@ package org.example.instruction;
 
 import org.example.expression.Expr;
 
+import java.util.HashMap;
+
 public class AssignmentInstruction implements Instruction {
     private final String id;
     private final Expr expr;
@@ -12,7 +14,7 @@ public class AssignmentInstruction implements Instruction {
     }
 
     @Override
-    public void run() {
-        expr.get();
+    public void run(HashMap<String, Object> assignmentLookup) {
+        assignmentLookup.put(id, expr.get(assignmentLookup));
     }
 }

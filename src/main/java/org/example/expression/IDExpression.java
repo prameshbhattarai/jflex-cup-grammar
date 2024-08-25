@@ -1,5 +1,7 @@
 package org.example.expression;
 
+import java.util.HashMap;
+
 public class IDExpression implements Expr {
 
     private final String id;
@@ -9,7 +11,7 @@ public class IDExpression implements Expr {
     }
 
     @Override
-    public Object get() {
-        return id;
+    public Object get(HashMap<String, Object> assignmentLookup) {
+        return assignmentLookup.get(id);
     }
 }

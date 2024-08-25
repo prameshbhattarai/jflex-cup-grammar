@@ -2,6 +2,8 @@ package org.example.expression;
 
 import org.example.operator.Operator;
 
+import java.util.HashMap;
+
 public class OperatorExpression implements Expr {
     private final Expr e1;
     private final Expr e2;
@@ -14,7 +16,7 @@ public class OperatorExpression implements Expr {
     }
 
     @Override
-    public Object get() {
-        return operator.exec(e1, e2);
+    public Object get(HashMap<String, Object> assignmentLookup) {
+        return operator.exec(e1, e2, assignmentLookup);
     }
 }
