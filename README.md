@@ -13,3 +13,22 @@ mvn clean package
 ```shell
 java -jar ./target/grammar.jar ./code
 ```
+
+### Supported Grammar
+* ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION, MODULUS operation
+* MAIN function, PRINT function
+* Define VARIABLE for calculation operation
+
+### Example
+In a ./code file, writing a simple program as defined following:
+```shell
+main() {
+    a = 1;
+    b = 2;
+    print(a + b);
+    print(4 + 4);
+    print("4 + 4");
+    print("abc");
+    print(a);
+}
+```
