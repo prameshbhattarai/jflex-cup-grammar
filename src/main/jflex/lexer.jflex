@@ -40,6 +40,7 @@ WHITESPACE = {NEWLINE} | [ \f\t\v]
 %%
 "print"         { return sf.newSymbol("print", PRINT); }
 "main"          { return sf.newSymbol("main", MAIN_FUNCTION); }
+"len"           { return sf.newSymbol("len", LENGTH); }
 
 "+"             { return sf.newSymbol("+", PLUS); }
 "-"             { return sf.newSymbol("-", MINUS); }

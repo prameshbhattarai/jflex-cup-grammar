@@ -20,7 +20,7 @@ java -jar ./target/grammar.jar ./code
 * Define VARIABLE for calculation operation
 
 ### Example
-In a ./code file, writing a simple program as defined following:
+In a ./example1 file, writing a simple program as defined following:
 ```shell
 main() {
     a = 1;

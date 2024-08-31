@@ -1,0 +1,13 @@
+main() {
+    a = -1;
+    b = 2;
+    abc = "hellooo";
+    print(a + b);
+    print(4 + 4);
+    print(a / b);
+    print("4 + 4");
+    print("first name" + "last name");
+    print(len(abc));
+    print(len("xyzasd"));
+    print(a);
+}

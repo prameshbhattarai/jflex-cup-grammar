@@ -43,7 +43,7 @@ terminal Integer NUMBER;
 terminal String IDENT;
 terminal String STRING;
 
-terminal PRINT, MAIN_FUNCTION; // instruction
+terminal PRINT, MAIN_FUNCTION, LENGTH; // instruction
 
 /* Non Terminals */
 non terminal Expr expr;
@@ -53,6 +53,7 @@ non terminal Expr str_expr;
 non terminal Program program;
 
 non terminal Operator num_op;
+non terminal ConcatOperator str_op;
 
 non terminal InstructionList inst_list;
 non terminal Instruction inst;
@@ -79,13 +80,19 @@ expr ::=
 num_expr ::=
     NUMBER:e
         {: RESULT = new IntExpression(e.intValue()); :} |
+    MINUS NUMBER:e
+        {: RESULT = new NegativeIntExpression(e.intValue()); :} |
     expr:e1 num_op:o expr:e2
         {: RESULT = new OperatorExpression(e1, o, e2); :}
 ;
 
 str_expr ::=
     STRING:s
-        {: RESULT = new StringExpression(s.substring(1, s.length()-1)); :}
+        {: RESULT = new StringExpression(s.substring(1, s.length()-1)); :} |
+    LENGTH LPAREN expr:e RPAREN
+        {: RESULT = new StringLengthExpression(e); :} |
+    STRING:s1 PLUS STRING:s2
+        {: RESULT = new StringConcatExpression(s1.substring(1, s1.length()-1), s2.substring(1, s2.length()-1)); :}
 ;
 
 num_op ::=
