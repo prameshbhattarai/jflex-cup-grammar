@@ -11,7 +11,7 @@ mvn clean package
 
 ### Run
 ```shell
-java -jar ./target/grammar.jar ./code
+java -jar ./target/grammar.jar ./example1
 ```
 
 ### Supported Grammar
