@@ -16,7 +16,7 @@ public class StringLengthExpression implements Expr {
         } else if (expr instanceof IDExpression i) {
             return i.get(assignmentLookup).toString().length();
         }
-        System.out.println("Error: wrong objects type");
+        System.out.println("Error: wrong objects type provided for String length");
         System.exit(1);
         return 0;
     }

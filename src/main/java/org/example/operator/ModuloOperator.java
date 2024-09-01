@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public class ModuloOperator implements Operator {
     @Override
-    public int exec(Expr e1, Expr e2, HashMap<String, Object> assignmentLookup) {
-        var a = getValue(e1, assignmentLookup);
-        var b = getValue(e2, assignmentLookup);
+    public Object exec(Expr e1, Expr e2, HashMap<String, Object> assignmentLookup) {
+        var a = (Integer) getValue(e1, assignmentLookup);
+        var b = (Integer) getValue(e2, assignmentLookup);
 
         if (b == 0) {
             System.out.println("Error: divide by 0");

@@ -1,3 +1,9 @@
 main() {
-    print("first name" + " last name");
+    print("first name" + " middle name " + "last name");
+    print(1 + 2 + 3 - 6);
+    print(1 + 2 + 3);
+    firstName = "Jack";
+    lastName = "Hammer";
+    print(firstName + " " + lastName);
+    print(len(firstName));
 }

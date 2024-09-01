@@ -90,9 +90,7 @@ str_expr ::=
     STRING:s
         {: RESULT = new StringExpression(s.substring(1, s.length()-1)); :} |
     LENGTH LPAREN expr:e RPAREN
-        {: RESULT = new StringLengthExpression(e); :} |
-    STRING:s1 PLUS STRING:s2
-        {: RESULT = new StringConcatExpression(s1.substring(1, s1.length()-1), s2.substring(1, s2.length()-1)); :}
+        {: RESULT = new StringLengthExpression(e); :}
 ;
 
 num_op ::=
